@@ -26,7 +26,7 @@ cd /usr/local
 file=/usr/local/mojocoin
 if [ ! -e "$file" ]
 then
-        sudo git clone https://github.com/MojocoinV3/mojocoin/.git
+        sudo git clone https://github.com/MOJOv3/mojocoin/.git
 fi
 
 cd /usr/local/mojocoin/src
