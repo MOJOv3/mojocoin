@@ -1,0 +1,2 @@
+debian/bin/mojocoind usr/bin
+src/mojocoind usr/lib/mojocoin

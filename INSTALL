@@ -1,0 +1,9 @@
+Building Mojocoin
+
+See doc/readme-qt.rst for instructions on building Mojocoin QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of Mojocoin.
+
+See doc/build-*.txt for instructions on building mojocoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of Mojocoin.
