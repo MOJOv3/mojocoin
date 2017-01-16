@@ -41,12 +41,12 @@ sudo cp /usr/local/mojocoin/src/mojocoind /usr/bin/mojocoind
 ################################################################
 # Configure to auto start at boot                                      #
 ################################################################
-file=$HOME/.mojocoin
+file=$HOME/.mojocoinV3
 if [ ! -e "$file" ]
 then
-        sudo mkdir $HOME/.mojocoin
+        sudo mkdir $HOME/.mojocoinV3
 fi
-printf '%s\n%s\n%s\n%s\n' 'daemon=1' 'server=1' 'rpcuser=u' 'rpcpassword=p' | sudo tee $HOME/.mojocoin/mojocoin.conf
+printf '%s\n%s\n%s\n%s\n' 'daemon=1' 'server=1' 'rpcuser=u' 'rpcpassword=p' | sudo tee $HOME/.mojocoinV3/mojocoin.conf
 file=/etc/init.d/mojocoin
 if [ ! -e "$file" ]
 then
