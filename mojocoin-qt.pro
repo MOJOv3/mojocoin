@@ -1,5 +1,5 @@
 TEMPLATE = app
-VERSION = 3.0.0.4
+VERSION = 3.0.0.5
 TARGET = mojocoin-qt
 QMAKE_TARGET_BUNDLE_PREFIX = co.mojocoin
 

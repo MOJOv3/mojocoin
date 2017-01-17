@@ -582,9 +582,9 @@ int64_t nHPSTimerStart = 0;
 
 void static BitcoinMiner(CWallet *pwallet)
 {
-    LogPrintf("BRAINHasher Miner started\n");
+    LogPrintf("Wallet Miner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("brain-miner");
+    RenameThread("wallet-miner");
 
     // Each thread has its own key and counter
     CReserveKey reservekey(pwallet);
@@ -612,7 +612,7 @@ void static BitcoinMiner(CWallet *pwallet)
 
         IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-        /*LogPrintf("Running BRAINHash Miner with %llu transactions in block (%u bytes)\n", pblock->vtx.size(),
+        /*LogPrintf("Running Wallet Miner with %llu transactions in block (%u bytes)\n", pblock->vtx.size(),
                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 */
         uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
@@ -656,7 +656,7 @@ void static BitcoinMiner(CWallet *pwallet)
                         //nHPSTimerStart = GetTimeMillis();
                         //nHashCounter = 0;
 			//nHashesDone = 0;
-                        // LogPrintf("BRAINHash CPU Hashing Rate: %6.0f hash/s\n", dHashesPerSec);
+                        // LogPrintf("Wallet CPU Hashing Rate: %6.0f hash/s\n", dHashesPerSec);
 			// Avoid Debug Log Pollution
 			nLimiter++; // Increment by 1
                         if (nLimiter >= 5000+1){
@@ -688,7 +688,7 @@ void static BitcoinMiner(CWallet *pwallet)
     } }
     catch (boost::thread_interrupted)
     {
-        LogPrintf("BRAINHash Miner terminated\n");
+        LogPrintf("Wallet Miner terminated\n");
         throw;
     }
 }
