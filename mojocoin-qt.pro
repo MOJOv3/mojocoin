@@ -1,7 +1,7 @@
 TEMPLATE = app
-
 VERSION = 3.0.0.3
 TARGET = mojocoin-qt
+QMAKE_TARGET_BUNDLE_PREFIX = co.mojocoin
 
 INCLUDEPATH += src src/json \
     src/qt
