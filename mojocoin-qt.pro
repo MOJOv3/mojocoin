@@ -1,5 +1,5 @@
 TEMPLATE = app
-VERSION = 3.0.0.3
+VERSION = 3.0.0.4
 TARGET = mojocoin-qt
 QMAKE_TARGET_BUNDLE_PREFIX = co.mojocoin
 
@@ -76,6 +76,7 @@ QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
 # for extra security on Windows: enable ASLR and DEP via GCC linker flags
 win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
 
+USE_QRCODE=1
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
 contains(USE_QRCODE, 1) {
@@ -91,6 +92,7 @@ contains(USE_QRCODE, 1) {
 #  or: qmake "USE_UPNP=0" (disabled by default)
 #  or: qmake "USE_UPNP=-" (not supported)
 # miniupnpc (http://miniupnp.free.fr/files/) must be installed for support
+USE_UPNP=1
 contains(USE_UPNP, -) {
     message(Building without UPNP support)
 } else {
