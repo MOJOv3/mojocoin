@@ -249,8 +249,11 @@ Value getworkex(const Array& params, bool fHelp)
     if (IsInitialBlockDownload())
         throw JSONRPCError(-10, "Mojocoin is downloading blocks...");
 
-    if (pindexBest->nHeight >= Params().LastPOWBlock())
-        throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
+    if (pindexBest->nHeight >= Params().LastPOWBlock() && pindexBest->nHeight < Params().PoWmining_Enable() )
+        throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks after LastPOWBlock ");
+
+    if (pindexBest->nHeight >= Params().LastPOWBlock2())
+        throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks after LastPOWBlock2 ");
 
     typedef map<uint256, pair<CBlock*, CScript> > mapNewBlock_t;
     static mapNewBlock_t mapNewBlock;
@@ -383,8 +386,11 @@ Value getwork(const Array& params, bool fHelp)
     if (IsInitialBlockDownload())
         throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Mojocoin is downloading blocks...");
 
-    if (pindexBest->nHeight >= Params().LastPOWBlock())
-        throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
+    if (pindexBest->nHeight >= Params().LastPOWBlock() && pindexBest->nHeight < Params().PoWmining_Enable() )
+        throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks after LastPOWBlock ");
+
+    if (pindexBest->nHeight >= Params().LastPOWBlock2())
+        throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks after LastPOWBlock2 ");
 
     typedef map<uint256, pair<CBlock*, CScript> > mapNewBlock_t;
     static mapNewBlock_t mapNewBlock;    // FIXME: thread safety
@@ -527,8 +533,11 @@ Value getblocktemplate(const Array& params, bool fHelp)
     if (IsInitialBlockDownload())
         throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Mojocoin is downloading blocks...");
 
-    if (pindexBest->nHeight >= Params().LastPOWBlock())
-        throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
+    if (pindexBest->nHeight >= Params().LastPOWBlock() && pindexBest->nHeight < Params().PoWmining_Enable() )
+        throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks after LastPOWBlock ");
+
+    if (pindexBest->nHeight >= Params().LastPOWBlock2())
+        throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks after LastPOWBlock2 ");
 
     // Update block
     static unsigned int nTransactionsUpdatedLast;
