@@ -2055,8 +2055,14 @@ bool CBlock::AcceptBlock()
     else if (!IsProtocolV2(nHeight) && nVersion > 6)
         return DoS(100, error("AcceptBlock() : reject too new nVersion = %d", nVersion));
 
-    if (IsProofOfWork() && nHeight > Params().LastPOWBlock())
-        return DoS(100, error("AcceptBlock() : reject proof-of-work at height %d", nHeight));
+    if (IsProofOfWork() && nHeight > Params().LastPOWBlock() && nHeight < Params().PoWmining_Enable()){
+        return DoS(100, error("AcceptBlock() : reject proof-of-work after LastPOWBlock: height %d", nHeight));
+    }
+
+    if (IsProofOfWork() && nHeight > Params().LastPOWBlock2()){
+        return DoS(100, error("AcceptBlock() : reject proof-of-work after LastPOWBlock2: height v2 %d", nHeight));
+    }
+
 
     // Check coinbase timestamp
     if (GetBlockTime() > FutureDrift((int64_t)vtx[0].nTime, nHeight))
@@ -2897,6 +2903,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         CAddress addrFrom;
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
+
         if (pfrom->nVersion < MIN_PEER_PROTO_VERSION)
         {
             // disconnect from peers older than this proto version
@@ -2921,6 +2928,15 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             pfrom->fDisconnect = true;
             return true;
         }
+
+        // enforce minimum protocol version on network.
+        if (pindexBest->nHeight > Params().PoWmining_Enable()){
+                if (pfrom->nVersion < LEGACY_CUTOFF_MIN_PROTOCOL_VERSION) {
+
+                LogPrintf("Diconnect legacy version after v3.1 fork: partner %s using obsolete version %i; disconnecting\n", pfrom->addr.ToString(), pfrom->nVersion);
+                pfrom->fDisconnect = true;
+            }
+		}
 
         pfrom->addrLocal = addrMe;
         if (pfrom->fInbound && addrMe.IsRoutable())
